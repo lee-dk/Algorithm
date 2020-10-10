@@ -2,12 +2,18 @@
 # 각 스탭별로 처리할 3x3 서브 윈도를 찾아서 반환한다.
 def getSubWindow(inputPuzzle, row, col): # 2차원 입력 배열, 입력 배열의 현재 행, 입력 배열의 현재 열
     subWindow = []  #현재 스탭의 3x3 서브 윈도
-
     ############# 여기부터 코딩 (1) ---------------->
+    # for i in range(3):
+    #     tmpAry = []
+    #     for k in range(3):
+    #         tmpAry.append(0)
+    #     subWindow.append(tmpAry)
 
+    subWindow = [[0 for _ in range(3)] for _ in range(3)]
 
-
-
+    for i in range(3):
+        for k in range(3):
+            subWindow[i][k] = inputPuzzle[i-1+row][k-1+col]
     ############# <-------------- 여기까지 코딩 (1)
     return subWindow
 
@@ -15,8 +21,28 @@ def getSubWindow(inputPuzzle, row, col): # 2차원 입력 배열, 입력 배열�
 # 3x3 서브 윈도에서 문항에서 제시한 조건에 따른 최대 절대값을 찾는다.
 def calcSubWindow(subWindow): # 3x3 서브 윈도
     retValue = -1  # 조건에 의해 찾은 최대값.
-
     ############# 여기부터 코딩 (1) ---------------->
+    ul = subWindow[0][1] - subWindow[2][1]
+    lr = subWindow[1][0] - subWindow[1][2]
+    cr1 = subWindow[0][0] - subWindow[2][2]
+    cr2 = subWindow[0][2] - subWindow[2][0]
+    if(ul<0):
+        ul *= -1
+    if (lr < 0):
+        lr *= -1
+    if (cr1 < 0):
+        cr1 *= -1
+    if (cr2 < 0):
+        cr2 *= -1
+
+    if retValue < lr :
+        retValue = lr
+    if retValue < ul :
+        retValue = ul
+    if retValue < cr1 :
+        retValue = cr1
+    if retValue < cr2 :
+        retValue = cr2
 
 
 
